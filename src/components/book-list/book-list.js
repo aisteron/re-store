@@ -3,6 +3,7 @@ import BookListItem from '../book-list-item';
 import { connect } from 'react-redux';
 import { withBookstoreService } from '../hoc';
 import { booksLoaded } from "../../actions";
+
 import './book-list.css';
 
 class BookList extends Component {
@@ -55,32 +56,77 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  // 1-я форма этой функции - это обычная функция, которая принимает dispatch
+    //----------------------
+    // mapDispatchToProps
+    // 1-я форма этой функции - это обычная функция, которая принимает dispatch
     // и возвращает объект, где ключи - это свойства, properties, которые мы
     // будем присваивать нашему объекту
     // а значение - это функция, которую мы будем вызывать
 
-    return {
+
+    /*dispatch({
+        type: 'BOOKS_LOADED',
+        payload: newBooks
+    })*/
+
+
+    // можно улучшить код с помощью функции action creator
+    // задача таких функций состоит в том, чтобы нам вручную не надо было создавать
+    // объекты action-ы, объекты события.
+    // сначала ее надо импортировать
+
+
+
+    // еще 1 шаг оптимизации - bindActionCreators
+    // эта функция возвращает объект идентичный такому,
+    // который мы должны вернуть из mapDispatchToProps:
+
+    /*return {
         booksLoaded: (newBooks) => {
-
-            // можно улучшить код с помощью функции action creator
-            // задача таких функций состоит в том, чтобы нам вручную не надо было создавать
-            // объекты action-ы, объекты события
-            // сначала ее надо импортировать
-
-            /*dispatch({
-                type: 'BOOKS_LOADED',
-                payload: newBooks
-            })*/
-
             dispatch(booksLoaded(newBooks))
         }
+    }*/
 
 
+    // bindActionCreators обернет наши экшн криэйтеры
+    // и сделает так, чтобы как только мы вызываем функцию booksLoaded,
+    // она автоматически будет создавать нужное действие и передавать
+    // его в метод dispatch, соотв. нам не нужно писать этот код вручную
 
-    }
+    //
+    // альтернативный формат mapDispatchToProps
+    //
+    // вместо передачи
+
+    /*return bindActionCreators({
+        booksLoaded
+    }, dispatch)*/
+
+    // в качестве второго аргумента в connect,
+    // мы можем передать объект
+    // если мы так поступим, то этот объект попадет в качестве первого аргумента
+    // в bindActionCreators
+    // и по умолчанию выполнится вот это действие:
+
+    /*return bindActionCreators({
+        booksLoaded
+    }, dispatch)*/
+
+    // поэтому mapDispatchToProps изменится с:
+
+    // const mapDispatchToProps = (dispatch) => {
+    //     return bindActionCreators({
+    //         booksLoaded
+    //     }, dispatch)
+    // }
+    // на:
+
+const mapDispatchToProps =  {
+    booksLoaded
 };
+
+
+
 
 // компонент будет получать книги из нашего redux store
 // при помощи функции mapStateToProps и функции connect,
