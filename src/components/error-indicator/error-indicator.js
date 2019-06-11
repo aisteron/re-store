@@ -3,7 +3,7 @@ import './error-indicator.css';
 
 const ErrorIndicator = () => {
     return (
-        <div>Error Indicator</div>
+        <span className="badge badge-danger">Ooops, something is wrong</span>
     )
 };
 

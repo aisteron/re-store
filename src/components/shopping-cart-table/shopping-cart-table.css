@@ -1,0 +1,23 @@
+td.action-area button {
+    margin-right: 0.3rem;
+    float:right
+}
+td.action-area button:first-child {
+    margin-right: 0
+}
+td.action-area {
+    padding-right: 0
+}
+
+.shopping-cart-table .table tr td {
+    vertical-align: middle;
+}
+
+.shopping-cart-table .table thead th:last-of-type {
+    text-align: right;
+}
+
+.total {
+    text-align: right;
+    font-size: 1.3rem;
+}
